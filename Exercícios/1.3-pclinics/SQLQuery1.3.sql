@@ -1,0 +1,80 @@
+CREATE DATABASE Execicio_1_3
+USE Execicio_1_3
+
+CREATE TABLE Clinica
+(
+	IdClinica INT PRIMARY KEY IDENTITY,
+	Endereco VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE TipoPet
+(
+	IdTipo INT PRIMARY KEY IDENTITY,
+	NomeTipo VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE Veterinario
+(
+	IdVet INT PRIMARY KEY IDENTITY,
+	IdClinica INT FOREIGN KEY REFERENCES Clinica(IdClinica),
+	Nome VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE Raca
+(
+	IdRaca INT PRIMARY KEY IDENTITY,
+	IdTipo INT FOREIGN KEY REFERENCES TipoPet(IdTipo),
+	Nome VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE Pet
+(
+	IdPet INT PRIMARY KEY IDENTITY,
+	IdRaca INT FOREIGN KEY REFERENCES Raca(IdRaca),
+	IdVet INT FOREIGN KEY REFERENCES Veterinario(IdVet),
+	Nome VARCHAR(30) NOT NULL,
+	DataNascimento DATE NOT NULL
+)
+
+CREATE TABLE Dono
+(
+	IdDono INT PRIMARY KEY IDENTITY,
+	IdPet INT FOREIGN KEY REFERENCES Pet(IdPet),
+	Nome VARCHAR(30) NOT NULL
+)
+
+--Clinica
+INSERT INTO Clinica(Endereco)
+VALUES('Rua-Goiais')
+
+SELECT * FROM Clinica
+
+--Tipo de pet
+INSERT INTO TipoPet(NomeTipo)
+VALUES('Gato')
+
+SELECT * FROM TipoPet
+
+--Veterinario
+INSERT INTO Veterinario(IdClinica, Nome)
+VALUES(1, 'Dra. Julia')
+
+SELECT * FROM Veterinario
+
+--Raca
+INSERT INTO Raca(IdTipo, Nome)
+VALUES(1, 'Persa')
+
+SELECT * FROM Raca
+
+--Pet
+INSERT INTO Pet(IdRaca, IdVet, Nome, DataNascimento)
+VALUES(1, 1, 'Princesa', '20-09-2018')
+
+SELECT * FROM Pet
+
+--Dono
+INSERT INTO Dono(IdPet, Nome)
+VALUES(1, 'Silvana')
+
+SELECT * FROM Dono
